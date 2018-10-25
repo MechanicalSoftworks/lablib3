@@ -15,19 +15,19 @@ include $(TERAPIXEL_SRC_DIR)/build/linux/build_init.mk
 #===============================================================================
 PROJ_TYPE = $(BUILD_STATIC_LIBRARY)
 
-PROJ_NAME=liblablib3
-PROJ_OUTPUT=liblablib3.out
+PROJ_NAME = lablib3
+PROJ_OUTPUT = lablib3.a
 
-PROJ_OUT_DIR=../lib
-PROJ_INCLUDE_DIR=../include
-PROJ_SRC_DIR=../src
-PROJ_OBJ_DIR=obj
+PROJ_OUT_DIR = ../lib
+PROJ_INCLUDE_DIR = ../include
+PROJ_SRC_DIR = ../src
+PROJ_OBJ_DIR = obj
 
-PROJ_CFLAGS=
-PROJ_LIBS=
+PROJ_CFLAGS = 
+PROJ_LIBS = 
 
 PROJ_OBJECTS = lablib3.o oamalloc.o
-PROJ_HEADERS = 
+PROJ_HEADERS = lablib3.h oamalloc.h toolbox.h
 
 #===============================================================================
 # BUILD!

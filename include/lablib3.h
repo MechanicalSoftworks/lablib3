@@ -33,7 +33,8 @@
 #	define LABLIB3_EXPORT		__declspec(dllexport)
 #	define LABLIB3_IMPORT		__declspec(dllimport)
 #else
-#	define LABLIB3_EXPORT		__attribute__((__visibility__("default")))
+//#	define LABLIB3_EXPORT		__attribute__((__visibility__("default")))
+#	define LABLIB3_EXPORT
 #	define LABLIB3_IMPORT
 #endif
 

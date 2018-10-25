@@ -98,6 +98,8 @@
 /*      02-01-05    MDC       Modified OdlExpandLabelFile routine. See    */
 /*                            notes.                                      */
 /*      03-10-05    MDC       Modified OdlParseFile routine. See notes.   */
+/*      10-25-18    laz       Modified OdlValueEnd and OdlValueRowEnd to  */
+/*                            fix segfault on invalid labels.             */
 /*                                                                        */
 /*========================================================================*/
 
@@ -6969,6 +6971,12 @@ char *OdlValueEnd( char *text)
     /*  find a character that is a brace, paren, or comma  */
     c = strpbrk(text, "{}(),");
 
+    /*  if we didn't find the end, just keep returning the beginning so it gets nulled */
+    if (!c)
+    {
+        return text;
+    }
+
     /*  backup over any trailing blanks  */
     for (--c; ((c > text) && ((*c == ' ') || (*c == '\0'))); --c) ;
 
@@ -7067,6 +7075,12 @@ char *OdlValueRowEnd( char *text)
 
     /*  find a character that is a brace or paren  */
     c = strpbrk(text, "{}()\n");
+
+    /*  if we didn't find the end, just keep returning the beginning so it gets nulled */
+    if (!c)
+    {
+        return text;
+    }
 
     /*  backup over any trailing blanks or commas  */
     for (--c; ((c > text) && ((*c == ' ') || (*c == ',') || (*c == '\0'))); --c) ;
