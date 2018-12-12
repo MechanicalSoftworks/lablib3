@@ -39,15 +39,15 @@
 #endif
 
 #ifdef __cplusplus
-#	define EXTERN_C				extern "C"
+#	define LABLIB3_EXTERN_C		extern "C"
 #else
-#	define EXTERN_C
+#	define LABLIB3_EXTERN_C
 #endif
 
 #ifdef BUILDING_LABLIB3
-#	define LABLIB3_DLL			EXTERN_C LABLIB3_EXPORT
+#	define LABLIB3_DLL			LABLIB3_EXTERN_C LABLIB3_EXPORT
 #else
-#	define LABLIB3_DLL			EXTERN_C LABLIB3_IMPORT
+#	define LABLIB3_DLL			LABLIB3_EXTERN_C LABLIB3_IMPORT
 #endif
 // !!! MECHSOFT END !!!
 
