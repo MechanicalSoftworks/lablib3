@@ -73,7 +73,7 @@ long bytes;
 
 #else
 
-char *OaMalloc( long bytes)
+LABLIB3_DLL char *OaMalloc( long bytes)
 
 #endif
 {
@@ -137,7 +137,7 @@ char *ptr;
 
 #else
 
-void OaFree( char *ptr)
+LABLIB3_DLL void OaFree( char *ptr)
 
 #endif
 {
@@ -219,7 +219,7 @@ long bytes;
 
 #else
 
-char *OaRealloc( char *old_ptr, long old_size, long bytes)
+LABLIB3_DLL char *OaRealloc( char *old_ptr, long old_size, long bytes)
 
 #endif
 {

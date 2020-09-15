@@ -28,29 +28,6 @@
 #ifndef __LABLIB3_LOADED
 #define __LABLIB3_LOADED
 
-// !!! MECHSOFT START !!!
-#ifdef _MSC_VER
-#	define LABLIB3_EXPORT		__declspec(dllexport)
-#	define LABLIB3_IMPORT		__declspec(dllimport)
-#else
-//#	define LABLIB3_EXPORT		__attribute__((__visibility__("default")))
-#	define LABLIB3_EXPORT
-#	define LABLIB3_IMPORT
-#endif
-
-#ifdef __cplusplus
-#	define LABLIB3_EXTERN_C		extern "C"
-#else
-#	define LABLIB3_EXTERN_C
-#endif
-
-#ifdef BUILDING_LABLIB3
-#	define LABLIB3_DLL			LABLIB3_EXTERN_C LABLIB3_EXPORT
-#else
-#	define LABLIB3_DLL			LABLIB3_EXTERN_C LABLIB3_IMPORT
-#endif
-// !!! MECHSOFT END !!!
-
 #include "toolbox.h"
 
 /**************************************************************************/

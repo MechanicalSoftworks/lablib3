@@ -21,6 +21,29 @@
 #ifndef OA_MALLOC_INCLUDED
 #define OA_MALLOC_INCLUDED 1
 
+// !!! MECHSOFT START !!!
+#ifdef _MSC_VER
+#	define LABLIB3_EXPORT		__declspec(dllexport)
+#	define LABLIB3_IMPORT		__declspec(dllimport)
+#else
+//#	define LABLIB3_EXPORT		__attribute__((__visibility__("default")))
+#	define LABLIB3_EXPORT
+#	define LABLIB3_IMPORT
+#endif
+
+#ifdef __cplusplus
+#	define LABLIB3_EXTERN_C		extern "C"
+#else
+#	define LABLIB3_EXTERN_C
+#endif
+
+#ifdef BUILDING_LABLIB3
+#	define LABLIB3_DLL			LABLIB3_EXTERN_C LABLIB3_EXPORT
+#else
+#	define LABLIB3_DLL			LABLIB3_EXTERN_C LABLIB3_IMPORT
+#endif
+// !!! MECHSOFT END !!!
+
 #include <stdlib.h>
 #if (defined( IBM_PC) && defined( MS_DOS))
 #include <alloc.h>
@@ -34,9 +57,9 @@ extern char *    OaRealloc();
 
 #else
 
-extern char *    OaMalloc( long bytes);
-extern void      OaFree( char *ptr);
-extern char *    OaRealloc( char *old_ptr, long old_size, long bytes);
+LABLIB3_DLL char *    OaMalloc( long bytes);
+LABLIB3_DLL void      OaFree( char *ptr);
+LABLIB3_DLL char *    OaRealloc( char *old_ptr, long old_size, long bytes);
 
 #endif  /* ifdef _NO_PROTO  */
 #endif  /* ifndef OA_MALLOC_INCLUDED  */
