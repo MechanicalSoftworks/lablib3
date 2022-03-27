@@ -22,10 +22,10 @@ namespace Odl
 		{
 		}
 
-		Keyword(const std::string &keyword_name, const std::string &value_text, const std::string &pre_comment, const std::string &line_comment, const std::string &file_name, long line_number) :
+		Keyword(const std::string &keyword_name, const char* value_text, const char* pre_comment, const char* line_comment, const char* file_name, long line_number) :
 			m_free_on_delete(false)
 		{
-			m_kwd = OdlNewKwd((char *)keyword_name.c_str(), (char *)value_text.c_str(), (char *)pre_comment.c_str(), (char *)line_comment.c_str(), (char *)file_name.c_str(), line_number);
+			m_kwd = OdlNewKwd((char *)keyword_name.c_str(), (char *)value_text, (char *)pre_comment, (char *)line_comment, (char *)file_name, line_number);
 			if (!m_kwd)
 			{
 				throw std::runtime_error("Failed to create new keyword");
@@ -34,14 +34,14 @@ namespace Odl
 			m_free_on_delete = true;
 		}
 
-		Keyword(const std::string &keyword_name, long long value, const std::string &pre_comment, const std::string &line_comment, const std::string &file_name, long line_number) :
+		Keyword(const std::string &keyword_name, long long value, const char* pre_comment, const char* line_comment, const char* file_name, long line_number) :
 			m_free_on_delete(false)
 		{
 			std::ostringstream value_text;
 
 			value_text << value;
 
-			m_kwd = OdlNewKwd((char *)keyword_name.c_str(), (char *)value_text.str().c_str(), (char *)pre_comment.c_str(), (char *)line_comment.c_str(), (char *)file_name.c_str(), line_number);
+			m_kwd = OdlNewKwd((char *)keyword_name.c_str(), (char *)value_text.str().c_str(), (char *)pre_comment, (char *)line_comment, (char *)file_name, line_number);
 			if (!m_kwd)
 			{
 				throw std::runtime_error("Failed to create new keyword");
@@ -113,10 +113,10 @@ namespace Odl
 		{
 		}
 
-		ObjDesc(const std::string &object_class, const std::string &pre_comment, const std::string &line_comment, const std::string &post_comment, const std::string &end_comment, const std::string &file_name, short is_a_group, long line_number) :
+		ObjDesc(const std::string &object_class, const char* pre_comment, const char* line_comment, const char* post_comment, const char* end_comment, const char* file_name, short is_a_group, long line_number) :
 			m_free_on_delete(false)
 		{
-			m_root = OdlNewObjDesc((char *)object_class.c_str(), (char *)pre_comment.c_str(), (char *)line_comment.c_str(), (char *)post_comment.c_str(), (char *)end_comment.c_str(), (char *)file_name.c_str(), is_a_group, line_number);
+			m_root = OdlNewObjDesc((char *)object_class.c_str(), (char *)pre_comment, (char *)line_comment, (char *)post_comment, (char *)end_comment, (char *)file_name, is_a_group, line_number);
 			if (!m_root)
 			{
 				throw std::runtime_error("Failed to create new OBJDESC");
@@ -133,9 +133,9 @@ namespace Odl
 			}
 		}
 
-		Keyword		FindKwd(const std::string &keyword_name, const std::string &keyword_value, unsigned long keyword_position, unsigned short search_scope) const
+		Keyword		FindKwd(const std::string &keyword_name, const char* keyword_value, unsigned long keyword_position, unsigned short search_scope) const
 		{
-			KEYWORD *	kwd = OdlFindKwd(m_root, (char *)keyword_name.c_str(), (char *)keyword_value.c_str(), keyword_position, search_scope);
+			KEYWORD *	kwd = OdlFindKwd(m_root, (char *)keyword_name.c_str(), (char *)keyword_value, keyword_position, search_scope);
 
 			if (!kwd)
 			{
@@ -145,9 +145,9 @@ namespace Odl
 			return Keyword(kwd);
 		}
 
-		ObjDesc		FindObjDesc(const std::string &object_class, const std::string &keyword_name, const std::string &keyword_value, unsigned long object_position, unsigned short search_scope) const
+		ObjDesc		FindObjDesc(const std::string &object_class, const char* keyword_name, const char* keyword_value, unsigned long object_position, unsigned short search_scope) const
 		{
-			OBJDESC *	desc = OdlFindObjDesc(m_root, (char *)object_class.c_str(), (char *)keyword_name.c_str(), (char *)keyword_value.c_str(), object_position, search_scope);
+			OBJDESC *	desc = OdlFindObjDesc(m_root, (char *)object_class.c_str(), (char *)keyword_name, (char *)keyword_value, object_position, search_scope);
 
 			if (!desc)
 			{
@@ -185,15 +185,15 @@ namespace Odl
 		{
 		}
 
-		InputLabel(const std::string &path, const std::string &log_path, MASK expand, unsigned short suppress_messages) :
+		InputLabel(const std::string &path, const char* log_path, MASK expand, unsigned short suppress_messages) :
 			ObjDesc(NULL, true)
 		{
 			Open(path, log_path, expand, suppress_messages);
 		}
 
-		void Open(const std::string &path, const std::string &log_path, MASK expand, unsigned short suppress_messages)
+		void Open(const std::string &path, const char* log_path, MASK expand, unsigned short suppress_messages)
 		{
-			m_root = OdlParseLabelFile((char *)path.c_str(), (char *)log_path.c_str(), expand, suppress_messages);
+			m_root = OdlParseLabelFile((char *)path.c_str(), (char *)log_path, expand, suppress_messages);
 			if (!m_root)
 			{
 				throw std::runtime_error("Failed to parse label file");
@@ -211,15 +211,15 @@ namespace Odl
 		{
 		}
 
-		OutputLabel(const std::string &object_class, const std::string &pre_comment, const std::string &line_comment, const std::string &post_comment, const std::string &end_comment, const std::string &file_name, short is_a_group, long line_number) :
+		OutputLabel(const std::string &object_class, const char* pre_comment, const char* line_comment, const char* post_comment, const char* end_comment, const char* file_name, short is_a_group, long line_number) :
 			ObjDesc(NULL, true)
 		{
 			Create(object_class, pre_comment, line_comment, post_comment, end_comment, file_name, is_a_group, line_number);
 		}
 
-		void Create(const std::string &object_class, const std::string &pre_comment, const std::string &line_comment, const std::string &post_comment, const std::string &end_comment, const std::string &file_name, short is_a_group, long line_number)
+		void Create(const std::string &object_class, const char* pre_comment, const char* line_comment, const char* post_comment, const char* end_comment, const char* file_name, short is_a_group, long line_number)
 		{
-			m_root = OdlNewObjDesc((char *)object_class.c_str(), (char *)pre_comment.c_str(), (char *)line_comment.c_str(), (char *)post_comment.c_str(), (char *)end_comment.c_str(), (char *)file_name.c_str(), is_a_group, line_number);
+			m_root = OdlNewObjDesc((char *)object_class.c_str(), (char *)pre_comment, (char *)line_comment, (char *)post_comment, (char *)end_comment, (char *)file_name, is_a_group, line_number);
 			if (!m_root)
 			{
 				throw std::runtime_error("Failed to create label root");
