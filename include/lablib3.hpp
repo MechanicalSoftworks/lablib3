@@ -96,6 +96,7 @@ namespace Odl
 		}
 
 		KEYWORD *	operator()() const { return m_kwd; }
+		operator KEYWORD* () const { return m_kwd; }
 
 	private:
 		KEYWORD *	m_kwd;
