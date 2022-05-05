@@ -81,6 +81,11 @@ namespace Odl
 			return strtod(OdlGetKwdValue(m_kwd), &end);
 		}
 
+		std::string	GetString() const
+		{
+			return OdlGetKwdValue(m_kwd);
+		}
+
 		auto		GetAllValues() const
 		{
 			TB_STRING_LIST *		value_list = OdlGetAllKwdValues(m_kwd);
