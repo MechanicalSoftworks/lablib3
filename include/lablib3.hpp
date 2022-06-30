@@ -176,6 +176,16 @@ namespace Odl
 			child.Detach();
 		}
 
+		void PrintLabel(const char *fname, unsigned long root_level, MASK options)
+		{
+			OdlPrintLabel(m_root, (char *)fname, nullptr, root_level, options);
+		}
+
+		void PrintLabel(FILE *fptr, unsigned long root_level, MASK options)
+		{
+			OdlPrintLabel(m_root, nullptr, fptr, root_level, options);
+		}
+
 	protected:
 		OBJDESC *	m_root;
 		mutable bool		m_free_on_delete;
@@ -209,6 +219,32 @@ namespace Odl
 		}
 	};
 
+	class StringLabel : public ObjDesc
+	{
+	public:
+		StringLabel() :
+			ObjDesc(NULL, false)
+		{
+		}
+
+		StringLabel(const std::string &label, const char* log_path, MASK expand, unsigned short suppress_messages) :
+			ObjDesc(NULL, true)
+		{
+			Parse(label, log_path, expand, suppress_messages);
+		}
+
+		void Parse(const std::string &label, const char* log_path, MASK expand, unsigned short suppress_messages)
+		{
+			m_root = OdlParseLabelString((char *)label.c_str(), (char *)log_path, expand, suppress_messages);
+			if (!m_root)
+			{
+				throw std::runtime_error("Failed to parse label string");
+			}
+
+			m_free_on_delete = true;
+		}
+	};
+
 	class OutputLabel : public ObjDesc
 	{
 	public:
@@ -232,11 +268,6 @@ namespace Odl
 			}
 
 			m_free_on_delete = true;
-		}
-
-		void PrintLabel(const char *fname, FILE *fptr, unsigned long root_level, MASK options)
-		{
-			OdlPrintLabel(m_root, (char *)fname, fptr, root_level, options);
 		}
 	};
 }
