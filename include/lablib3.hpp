@@ -102,6 +102,7 @@ namespace Odl
 
 		KEYWORD *	operator()() const { return m_kwd; }
 		operator KEYWORD* () const { return m_kwd; }
+		operator bool() const { return m_kwd != nullptr; }
 
 	private:
 		KEYWORD *	m_kwd;
@@ -139,11 +140,11 @@ namespace Odl
 			}
 		}
 
-		Keyword		FindKwd(const std::string &keyword_name, const char* keyword_value, unsigned long keyword_position, unsigned short search_scope) const
+		Keyword		FindKwd(const std::string &keyword_name, const char* keyword_value, unsigned long keyword_position, unsigned short search_scope, bool required = true) const
 		{
 			KEYWORD *	kwd = OdlFindKwd(m_root, (char *)keyword_name.c_str(), (char *)keyword_value, keyword_position, search_scope);
 
-			if (!kwd)
+			if (!kwd && required)
 			{
 				throw std::runtime_error("Failed to find keyword");
 			}
