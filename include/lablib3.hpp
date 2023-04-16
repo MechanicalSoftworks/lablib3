@@ -88,7 +88,7 @@ namespace Odl
 
 		auto		GetAllValues() const
 		{
-			TB_STRING_LIST *		value_list = OdlGetAllKwdValues(m_kwd);
+			TB_STRING_LIST *			value_list = OdlGetAllKwdValues(m_kwd);
 			std::vector<std::string>	cpp_list;
 
 			for (TB_STRING_LIST *l = value_list; l != nullptr; l = l->next)
@@ -100,9 +100,13 @@ namespace Odl
 			return cpp_list;
 		}
 
-		KEYWORD *	operator()() const { return m_kwd; }
-		operator KEYWORD* () const { return m_kwd; }
-		operator bool() const { return m_kwd != nullptr; }
+		KEYWORD *	operator()() const	{ return m_kwd; }
+		operator KEYWORD* () const		{ return m_kwd; }
+		auto operator!() const			{ return !m_kwd; }
+
+		operator double() const				{ return GetDouble(); }
+		operator int() const				{ return GetInt(); }
+		operator const std::string&() const	{ return GetString(); }
 
 	private:
 		KEYWORD *	m_kwd;
