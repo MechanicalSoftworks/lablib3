@@ -81,6 +81,12 @@ namespace Odl
 			return strtod(OdlGetKwdValue(m_kwd), &end);
 		}
 
+		float		GetFloat() const
+		{
+			char* end = nullptr;
+			return strtof(OdlGetKwdValue(m_kwd), &end);
+		}
+
 		std::string	GetString() const
 		{
 			return OdlGetKwdValue(m_kwd);
@@ -104,6 +110,7 @@ namespace Odl
 		operator KEYWORD* () const		{ return m_kwd; }
 		auto operator!() const			{ return !m_kwd; }
 
+		operator float() const				{ return GetFloat(); }
 		operator double() const				{ return GetDouble(); }
 		operator int() const				{ return GetInt(); }
 		operator const std::string&() const	{ return GetString(); }
