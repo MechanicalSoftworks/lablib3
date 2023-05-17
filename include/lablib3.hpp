@@ -110,10 +110,10 @@ namespace Odl
 		operator KEYWORD* () const		{ return m_kwd; }
 		auto operator!() const			{ return !m_kwd; }
 
-		operator float() const				{ return GetFloat(); }
-		operator double() const				{ return GetDouble(); }
-		operator int() const				{ return GetInt(); }
-		operator const std::string&() const	{ return GetString(); }
+		operator float() const			{ return GetFloat(); }
+		operator double() const			{ return GetDouble(); }
+		operator int() const			{ return GetInt(); }
+		operator std::string() const	{ return GetString(); }
 
 	private:
 		KEYWORD *	m_kwd;
