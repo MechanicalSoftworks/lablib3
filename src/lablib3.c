@@ -377,7 +377,7 @@ OBJDESC *OdlExpandLabelFile (OBJDESC *object, char *message_fname,
     char *keyword_search_string = {NULL};
     char *fudge_string = {"_TEMPORARILY_RENAMED"};
     char error_message[5*(TB_MAXLINE + TB_MAXPATH + TB_MAXFNAME)];
-	char prev_error_message = NULL;
+	char prev_error_message = 0;
 
     odl_suppress_messages = suppress_messages;
 
@@ -3813,7 +3813,7 @@ char *OdlGetParentDir(char *dir)
 	ptr = strrchr(dirCopy, *pathSep);
 	if(ptr != NULL) {
 		++ptr;
-		*ptr = NULL;
+		*ptr = 0;
 		parent = dirCopy;
 	}
 
